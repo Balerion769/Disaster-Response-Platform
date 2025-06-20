@@ -11,15 +11,36 @@ dotenv.config();
 
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server, {
-  cors: {
-    origin: '*', // Allow all origins for simplicity, restrict in production
-    methods: ['GET', 'POST'],
-  },
-});
 
-// Middleware
-app.use(cors());
+// --- START OF THE FIX ---
+// Define the allowed origin.
+// Triple-check this URL for typos. It must be exactly your Vercel URL.
+const allowedOrigins = ['https://disaster-response-platform-gamma.vercel.app'];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    // allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'x-user-id'],
+  credentials: true
+};
+
+// Use these options for both Express and Socket.IO
+app.use(cors(corsOptions));
+
+const io = new Server(server, {
+  cors: corsOptions
+});
+// --- END OF THE FIX ---
+
+
 app.use(express.json());
 
 // Rate Limiting
