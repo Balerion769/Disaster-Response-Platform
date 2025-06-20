@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disaster Response Platform</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Disaster Response Coordination</h1>
+            <div class="user-selector">
+                <label for="user">Current User:</label>
+                <select id="user">
+                    <option value="netrunnerX">netrunnerX (Contributor)</option>
+                    <option value="reliefAdmin">reliefAdmin (Admin)</option>
+                </select>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="column">
+                <h2>Create / Update Disaster</h2>
+                <form id="disaster-form">
+                    <input type="hidden" id="disaster-id">
+                    <input type="text" id="title" placeholder="Disaster Title" required>
+                    <textarea id="description" placeholder="Description (e.g., 'Flooding near City Hall, San Francisco')" required></textarea>
+                    <input type="text" id="location" placeholder="Location Name (optional, e.g., 'Manhattan, NYC')">
+                    <input type="text" id="tags" placeholder="Tags (comma-separated, e.g., flood,urgent)">
+                    <button type="submit">Submit Disaster</button>
+                    <button type="button" id="clear-form-btn">Clear Form</button>
+                </form>
+
+                <h2>Disasters List</h2>
+                <div id="disasters-list" class="card-list">
+                    <!-- Disaster cards will be populated here -->
+                </div>
+            </div>
+
+            <div class="column">
+                <h2>Selected Disaster Details</h2>
+                <div id="details-view" class="details-view">
+                    <h3 id="details-title">Select a disaster to see details</h3>
+                    
+                    <h4>Official Updates (FEMA)</h4>
+                    <div id="official-updates" class="card-list small"></div>
+
+                    <h4>Social Media Feed (Mock)</h4>
+                    <div id="social-media-feed" class="card-list small"></div>
+
+                    <h4>Nearby Resources</h4>
+                    <div id="resources-list" class="card-list small"></div>
+                    
+                    <h4>Submit a Report</h4>
+                    <form id="report-form" class="small-form">
+                        <textarea id="report-content" placeholder="Report content..." required></textarea>
+                        <input type="text" id="report-image-url" placeholder="Image URL (optional)">
+                        <button type="submit">Submit Report</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
