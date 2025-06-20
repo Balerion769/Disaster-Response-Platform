@@ -1,6 +1,6 @@
 // const API_URL = 'http://localhost:3001/api';
-https://disaster-response-platform-6p4e.onrender.com
-const socket = io('http://localhost:3001');
+const API_URL = 'https://disaster-response-platform-6p4e.onrender.com/api'
+const socket = io('https://disaster-response-platform-6p4e.onrender.com');
 
 // --- DOM Elements ---
 const userSelector = document.getElementById('user');
